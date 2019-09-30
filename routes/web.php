@@ -42,3 +42,16 @@ Route::get('/delete/{id}/{photo_id}', function ($id, $photo_id) {
   $staff = Staff::findOrFail($id);
   $staff->photos()->whereId($photo_id)->delete();
 });
+
+Route::get('/assign/{id}/{photo_id}', function ($id, $photo_id ) {
+  $staff = Staff::findOrFail($id);
+  $photo = Photo::findOrFail($photo_id);
+  $staff->photos()->save($photo);
+});
+
+Route::get('/unassign/{id}/{photo_id}', function ($id, $photo_id ) {
+  // we cant really do this because the database constraints arent letting us
+  // also its dumb to do this and just leave unreferenced data about
+  $staff = Staff::findOrFail($id);
+  $staff->photos()->whereId($photo_id)->update(['imageable_id' => '', 'imageable_type' => '']);
+});
