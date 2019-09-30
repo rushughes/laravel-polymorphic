@@ -23,3 +23,10 @@ Route::get('/create/{id}/{path}', function ($id, $path) {
   $staff = Staff::findOrFail($id);
   $staff->photos()->create(['path'=>$path]);
 });
+
+Route::get('/read/{id}', function ($id) {
+  $staff = Staff::findOrFail($id);
+  foreach ($staff->photos as $photo) {
+    echo $photo->path . '<br />';
+  }
+});
