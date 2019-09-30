@@ -37,3 +37,8 @@ Route::get('/update/{id}/{photo_id}/{path}', function ($id, $photo_id, $path) {
   $photo->path = $path;
   $photo->save();
 });
+
+Route::get('/delete/{id}/{photo_id}', function ($id, $photo_id) {
+  $staff = Staff::findOrFail($id);
+  $staff->photos()->whereId($photo_id)->delete();
+});
