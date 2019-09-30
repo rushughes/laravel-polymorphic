@@ -1,5 +1,9 @@
 <?php
 
+use App\Staff;
+use App\Photo;
+use App\Product;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +17,9 @@
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/create/{id}/{path}', function ($id, $path) {
+  $staff = Staff::findOrFail($id);
+  $staff->photos()->create(['path'=>$path]);
 });
